@@ -64,12 +64,22 @@ class CamPreviewDialog(xbmcgui.WindowDialog):
     def downloadSnapshot(self, url, destination):
         log('Retreiving Image \n', xbmc.LOGDEBUG)
         try:
-            imgData = urllib2.urlopen(url).read()
-            filename = snapshot = xbmc.translatePath( os.path.join( destination, 'snapshot' + str(time.time()) + '.jpg' ).encode("utf-8") ).decode("utf-8")
-            output = open(filename,'wb')
-            log('Saving Image To: [' + filename + ']\n', xbmc.LOGDEBUG)
-            output.write(imgData)
-            output.close()
+            imgdata = ''
+            stream = urllib2.urlopen( url )
+            while True:
+                imgdata += stream.read(1024)
+                a = imgdata.find('\xff\xd8')
+                b = imgdata.find('\xff\xd9')
+                if (a != -1) and (b != -1):
+                    jpg = imgdata[a:b+2]
+                    filename = xbmc.translatePath( os.path.join( destination, 'snapshot' + str(time.time()) + '.jpg' ).encode("utf-8") ).decode("utf-8")
+                    output = open(filename, 'wb')
+                    log('Saving Image To: [' + filename + ']\n', xbmc.LOGDEBUG)
+                    output.write( imgdata )
+                    output.close()
+                    break
+
+            stream.close()
             return filename
         except:
             return ''
