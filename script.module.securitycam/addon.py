@@ -5,7 +5,7 @@ import os, time, urllib2, xbmc, xbmcaddon, xbmcgui, xbmcvfs
 ACTION_PREVIOUS_MENU = 10
 ACTION_BACKSPACE = 110
 ACTION_NAV_BACK = 92
-ADD_ON_ID = 'script.securitycam'
+ADD_ON_ID = 'script.module.securitycam'
 
 # Set plugin variables
 __addon__    = xbmcaddon.Addon()
@@ -77,6 +77,7 @@ class CamPreviewDialog(xbmcgui.WindowDialog):
                     log('Saving Image To: [' + filename + ']\n', xbmc.LOGDEBUG)
                     output.write( imgdata )
                     output.close()
+                    imgdata = ''
                     break
 
             stream.close()
