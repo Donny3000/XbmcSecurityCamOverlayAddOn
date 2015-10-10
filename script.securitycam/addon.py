@@ -5,7 +5,7 @@ import os, time, urllib2, xbmc, xbmcaddon, xbmcgui, xbmcvfs
 ACTION_PREVIOUS_MENU = 10
 ACTION_BACKSPACE = 110
 ACTION_NAV_BACK = 92
-ADD_ON_ID = 'script.module.securitycam'
+ADD_ON_ID = 'script.securitycam'
 
 # Set plugin variables
 __addon__    = xbmcaddon.Addon()
